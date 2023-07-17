@@ -1,0 +1,48 @@
+.mybody{
+    margin:0px;
+    padding:0px;
+    font-family:arial;
+    position: relative;
+  }
+  .grid{
+    width:20%;
+    margin-top:50px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    margin-left: 40px;
+    
+  }
+  .grid__card{
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom:24px;
+    position:relative;
+    height: 400px;
+  }
+  .grid__card-img{
+    width:100%;
+  }
+  .grid__card-details{
+    padding:5px 20px;
+    position:relative;
+  }
+  .grid__card-button{
+    border-radius: 4px;
+    box-shadow: 0 5px 15px 0 rgba(0, 122, 160, 0.1);
+    background-color: #3498db;
+    padding:8px 12px;
+    color:#fff;
+    font-size:16px;
+    height:35px;
+    width: 160px;
+  }
+
+
+
+.grid__card-select {
+    width: 130px;
+    height: 24px;
+}

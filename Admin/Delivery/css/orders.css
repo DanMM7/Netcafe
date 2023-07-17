@@ -1,0 +1,11 @@
+.btno {
+    cursor:pointer;
+  }
+  
+  .details {
+    display: none;
+  }
+  
+  .details .open {
+    display: table-cell;
+  }
