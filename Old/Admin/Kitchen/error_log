@@ -1,2 +1,0 @@
-[12-Oct-2020 16:59:03 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/netcauon/public_html/Admin/Kitchen/index.php on line 37
-[12-Oct-2020 17:01:35 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, bool given in /home/netcauon/public_html/Admin/Kitchen/index.php on line 37
