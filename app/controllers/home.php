@@ -1,19 +1,11 @@
 <?php
 
-    Class Home  {
+    Class Home extends Controller{
         
         public function index() {
-            //$this->view('home/index');
-            echo 'home/index';
+            $this->view('home');
         }
+
 
     }
 
-    Class number2  {
-        
-        public function index() {
-            //$this->view('home/index');
-            echo 'home/index';
-        }
-
-    }
