@@ -19,5 +19,6 @@
     define('ASSETS', $path . 'assets/');
    
     include '../app/init.php';
-    show(ASSETS);
+    //show(ASSETS);
+    
     $app = new App;
