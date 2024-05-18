@@ -4,7 +4,7 @@
         
         public function index() {
 
-            $this->view('coffee/index');
+            $this->view('Netcafe/index');
         }
 
 
