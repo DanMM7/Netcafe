@@ -4,7 +4,7 @@
         
         public function index() {
 
-            $this->view('home');
+            $this->view('coffee/index');
         }
 
 
