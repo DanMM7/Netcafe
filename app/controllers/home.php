@@ -3,8 +3,10 @@
     Class Home extends Controller{
         
         public function index() {
-
-            $this->view('Netcafe/index');
+            $data = [
+                'page_title' => 'Netcafe'
+            ];
+            $this->view('Netcafe/index', $data);
         }
 
 
