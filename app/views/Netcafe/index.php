@@ -9,24 +9,24 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/animate.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/animate.css">
     
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/magnific-popup.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/magnific-popup.css">
 
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/aos.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/aos.css">
 
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/jquery.timepicker.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/jquery.timepicker.css">
 
     
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/flaticon.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/icomoon.css">
-    <link rel="stylesheet" href="<?php echo ASSETS ?>Netcafe/css/style.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/flaticon.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/icomoon.css">
+    <link rel="stylesheet" href="<?= ASSETS ?>Netcafe/css/style.css">
   </head>
   <body>
 
@@ -61,7 +61,7 @@
     <!-- END nav -->
 
     <section class="home-slider owl-carousel">
-      <div class="slider-item" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/bg_1.jpg);">
+      <div class="slider-item" style="background-image: url(<?= ASSETS ?>Netcafe/images/bg_1.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="slider-item" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/bg_2.jpg);">
+      <div class="slider-item" style="background-image: url(<?= ASSETS ?>Netcafe/images/bg_2.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      <div class="slider-item" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/bg_3.jpg);">
+      <div class="slider-item" style="background-image: url(<?= ASSETS ?>Netcafe/images/bg_3.jpg);">
       	<div class="overlay"></div>
         <div class="container">
           <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -273,7 +273,7 @@
     	</div>
     </section>
 
-    <section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/bg_2.jpg);" data-stellar-background-ratio="0.5">
+    <section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url(<?= ASSETS ?>Netcafe/images/bg_2.jpg);" data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
       <div class="container">
         <div class="row justify-content-center">
@@ -333,7 +333,7 @@
         <div class="row">
         	<div class="col-md-3">
         		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/menu-1.jpg);"></a>
+    					<a href="#" class="img" style="background-image: url(<?= ASSETS ?>Netcafe/images/menu-1.jpg);"></a>
     					<div class="text text-center pt-4">
     						<h3><a href="#">Netcafe Capuccino</a></h3>
     						<p>A small river named Duden flows by their place and supplies</p>
@@ -344,7 +344,7 @@
         	</div>
         	<div class="col-md-3">
         		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/menu-2.jpg);"></a>
+    					<a href="#" class="img" style="background-image: url(<?= ASSETS ?>Netcafe/images/menu-2.jpg);"></a>
     					<div class="text text-center pt-4">
     						<h3><a href="#">Netcafe Capuccino</a></h3>
     						<p>A small river named Duden flows by their place and supplies</p>
@@ -355,7 +355,7 @@
         	</div>
         	<div class="col-md-3">
         		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/menu-3.jpg);"></a>
+    					<a href="#" class="img" style="background-image: url(<?= ASSETS ?>Netcafe/images/menu-3.jpg);"></a>
     					<div class="text text-center pt-4">
     						<h3><a href="#">Netcafe Capuccino</a></h3>
     						<p>A small river named Duden flows by their place and supplies</p>
@@ -366,7 +366,7 @@
         	</div>
         	<div class="col-md-3">
         		<div class="menu-entry">
-    					<a href="#" class="img" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/menu-4.jpg);"></a>
+    					<a href="#" class="img" style="background-image: url(<?= ASSETS ?>Netcafe/images/menu-4.jpg);"></a>
     					<div class="text text-center pt-4">
     						<h3><a href="#">Netcafe Capuccino</a></h3>
     						<p>A small river named Duden flows by their place and supplies</p>
@@ -560,7 +560,7 @@
     	</div>
     </section>
 
-    <section class="ftco-section img" id="ftco-testimony" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/bg_1.jpg);"  data-stellar-background-ratio="0.5">
+    <section class="ftco-section img" id="ftco-testimony" style="background-image: url(<?= ASSETS ?>Netcafe/images/bg_1.jpg);"  data-stellar-background-ratio="0.5">
     	<div class="overlay"></div>
 	    <div class="container">
 	      <div class="row justify-content-center mb-5">
@@ -770,7 +770,7 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Recent Blog</h2>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(<?= ASSETS ?>Netcafe/images/image_1.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                   <div class="meta">
@@ -781,7 +781,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(<?php echo ASSETS ?>Netcafe/images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(<?= ASSETS ?>Netcafe/images/image_2.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about</a></h3>
                   <div class="meta">
@@ -833,23 +833,23 @@
   	<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/popper.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/bootstrap.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.easing.1.3.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.waypoints.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.stellar.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/owl.carousel.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.magnific-popup.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/aos.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.animateNumber.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/bootstrap-datepicker.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/jquery.timepicker.min.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/scrollax.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/popper.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/bootstrap.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.easing.1.3.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.waypoints.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.stellar.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/owl.carousel.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.magnific-popup.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/aos.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.animateNumber.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/bootstrap-datepicker.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/jquery.timepicker.min.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/scrollax.min.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/google-map.js"></script>
-	<script src="<?php echo ASSETS ?>Netcafe/js/main.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/google-map.js"></script>
+	<script src="<?= ASSETS ?>Netcafe/js/main.js"></script>
     
   </body>
 </html>
