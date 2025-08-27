@@ -54,6 +54,11 @@
 
     <section class="ftco-intro">
     	<div class="container-wrap">
+    		<?php if(isset($data['db_status'])): ?>
+    		<div class="alert alert-info text-center">
+    			<?php echo $data['db_status']; ?>
+    		</div>
+    		<?php endif; ?>
     		<div class="wrap d-md-flex align-items-xl-end">
 	    		<div class="info">
 	    			<div class="row no-gutters">
