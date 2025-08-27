@@ -528,4 +528,184 @@ class Admin extends Controller {
         echo json_encode($response);
         exit();
     }
+
+    // User Management Methods
+    public function users() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $data['page_title'] = "Manage Users";
+
+        // Get all users
+        $this->db->query("SELECT id, username, name, email, role, created_at, 
+                         (SELECT COUNT(*) FROM orders WHERE user_id = users.id) as total_orders 
+                         FROM users 
+                         WHERE id != ? 
+                         ORDER BY created_at DESC");
+        $this->db->bind(1, $_SESSION['admin_id']); // Exclude current admin
+        $data['users'] = $this->db->resultSet();
+
+        $this->view('admin/users', $data);
+    }
+
+    public function add_user() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $response = ['success' => false, 'message' => ''];
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $username = trim($_POST['username']);
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $password = $_POST['password'];
+            $role = $_POST['role'];
+
+            if(empty($username) || empty($email) || empty($password)) {
+                $response['message'] = "All fields are required";
+            } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response['message'] = "Invalid email format";
+            } elseif(strlen($password) < 6) {
+                $response['message'] = "Password must be at least 6 characters long";
+            } else {
+                // Check if username exists
+                $this->db->query("SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1");
+                $this->db->bind(1, $username);
+                $this->db->bind(2, $email);
+                
+                if($this->db->single()) {
+                    $response['message'] = "Username or email already exists";
+                } else {
+                    // Add new user
+                    $this->db->query("INSERT INTO users (username, name, email, password, role) VALUES (?, ?, ?, ?, ?)");
+                    $this->db->bind(1, $username);
+                    $this->db->bind(2, $name);
+                    $this->db->bind(3, $email);
+                    $this->db->bind(4, password_hash($password, PASSWORD_DEFAULT));
+                    $this->db->bind(5, $role);
+
+                    if($this->db->execute()) {
+                        $response['success'] = true;
+                        $response['message'] = "User added successfully";
+                    } else {
+                        $response['message'] = "Error adding user";
+                    }
+                }
+            }
+        }
+
+        echo json_encode($response);
+        exit();
+    }
+
+    public function edit_user() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $response = ['success' => false, 'message' => ''];
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $id = intval($_POST['id']);
+            $username = trim($_POST['username']);
+            $name = trim($_POST['name']);
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']); // Optional
+            $role = $_POST['role'];
+
+            // Don't allow editing self through this method
+            if($id == $_SESSION['admin_id']) {
+                $response['message'] = "Cannot edit your own account through this interface";
+                echo json_encode($response);
+                exit();
+            }
+
+            if(empty($username) || empty($email)) {
+                $response['message'] = "Username and email are required";
+            } elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $response['message'] = "Invalid email format";
+            } else {
+                // Check if username/email exists for other users
+                $this->db->query("SELECT id FROM users WHERE (username = ? OR email = ?) AND id != ? LIMIT 1");
+                $this->db->bind(1, $username);
+                $this->db->bind(2, $email);
+                $this->db->bind(3, $id);
+                
+                if($this->db->single()) {
+                    $response['message'] = "Username or email already exists";
+                } else {
+                    // Update user
+                    $password_sql = !empty($password) ? ", password = '" . password_hash($password, PASSWORD_DEFAULT) . "'" : "";
+                    $this->db->query("UPDATE users SET username = ?, name = ?, email = ?, role = ? $password_sql WHERE id = ?");
+                    $this->db->bind(1, $username);
+                    $this->db->bind(2, $name);
+                    $this->db->bind(3, $email);
+                    $this->db->bind(4, $role);
+                    $this->db->bind(5, $id);
+
+                    if($this->db->execute()) {
+                        $response['success'] = true;
+                        $response['message'] = "User updated successfully";
+                    } else {
+                        $response['message'] = "Error updating user";
+                    }
+                }
+            }
+        }
+
+        echo json_encode($response);
+        exit();
+    }
+
+    public function delete_user() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $response = ['success' => false, 'message' => ''];
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $id = intval($_POST['id']);
+
+            // Don't allow deleting self
+            if($id == $_SESSION['admin_id']) {
+                $response['message'] = "Cannot delete your own account";
+                echo json_encode($response);
+                exit();
+            }
+
+            // Check if user has any orders
+            $this->db->query("SELECT COUNT(*) as order_count FROM orders WHERE user_id = ?");
+            $this->db->bind(1, $id);
+            $result = $this->db->single();
+
+            if($result->order_count > 0) {
+                $response['message'] = "Cannot delete user. They have orders in the system.";
+            } else {
+                // Delete user
+                $this->db->query("DELETE FROM users WHERE id = ?");
+                $this->db->bind(1, $id);
+
+                if($this->db->execute()) {
+                    $response['success'] = true;
+                    $response['message'] = "User deleted successfully";
+                } else {
+                    $response['message'] = "Error deleting user";
+                }
+            }
+        }
+
+        echo json_encode($response);
+        exit();
+    }
 }
