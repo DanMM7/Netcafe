@@ -84,4 +84,22 @@ class Database {
             return false;
         }
     }
+
+    // Transaction methods
+    public function beginTransaction() {
+        return $this->dbh->beginTransaction();
+    }
+
+    public function commit() {
+        return $this->dbh->commit();
+    }
+
+    public function rollBack() {
+        return $this->dbh->rollBack();
+    }
+
+    // Get last inserted ID
+    public function lastInsertId() {
+        return $this->dbh->lastInsertId();
+    }
 }
