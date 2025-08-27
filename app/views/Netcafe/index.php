@@ -1,5 +1,5 @@
 <?php
-	$this->view('Netcafe/header',$data);				
+	$this->view('Netcafe/layout/header',$data);				
 ?>
 
     <section class="home-slider owl-carousel">
@@ -699,5 +699,5 @@
     </section>
 
 <?php
-	$this->view('Netcafe/footer');
+	$this->view('Netcafe/layout/footer');
 ?>
