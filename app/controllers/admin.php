@@ -396,4 +396,136 @@ class Admin extends Controller {
         echo json_encode($response);
         exit();
     }
+
+    // Order Management Methods
+    public function orders() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $data['page_title'] = "Manage Orders";
+
+        // Get all orders with user and status info
+        $this->db->query("SELECT o.*, os.name as status_name, 
+                         CASE 
+                            WHEN o.user_id IS NOT NULL THEN COALESCE(u.name, u.username)
+                            ELSE o.customer_name 
+                         END as customer_name,
+                         CASE 
+                            WHEN o.user_id IS NOT NULL THEN u.email
+                            ELSE o.customer_email
+                         END as customer_email,
+                         o.customer_phone
+                         FROM orders o 
+                         LEFT JOIN order_status os ON o.status_id = os.id 
+                         LEFT JOIN users u ON o.user_id = u.id 
+                         ORDER BY o.created_at DESC");
+        $data['orders'] = $this->db->resultSet();
+
+        // Get order statuses for dropdown
+        $this->db->query("SELECT * FROM order_status ORDER BY id");
+        $data['statuses'] = $this->db->resultSet();
+
+        $this->view('admin/orders', $data);
+    }
+
+    public function order_details($id = null) {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        if(!$id) {
+            header("Location: " . ROOT . "admin/orders");
+            exit();
+        }
+
+        $data['page_title'] = "Order Details";
+
+        // Get order details
+        $this->db->query("SELECT o.*, os.name as status_name, 
+                         CASE 
+                            WHEN o.user_id IS NOT NULL THEN COALESCE(u.name, u.username)
+                            ELSE o.customer_name 
+                         END as customer_name,
+                         CASE 
+                            WHEN o.user_id IS NOT NULL THEN u.email
+                            ELSE o.customer_email
+                         END as customer_email,
+                         o.customer_phone
+                         FROM orders o 
+                         LEFT JOIN order_status os ON o.status_id = os.id 
+                         LEFT JOIN users u ON o.user_id = u.id 
+                         WHERE o.id = ?");
+        $this->db->bind(1, $id);
+        $data['order'] = $this->db->single();
+
+        if(!$data['order']) {
+            header("Location: " . ROOT . "admin/orders");
+            exit();
+        }
+
+        // Get order items
+        $this->db->query("SELECT oi.*, mi.name, mi.image 
+                         FROM order_items oi 
+                         LEFT JOIN menu_items mi ON oi.menu_item_id = mi.id 
+                         WHERE oi.order_id = ?");
+        $this->db->bind(1, $id);
+        $data['items'] = $this->db->resultSet();
+
+        // Get order statuses for dropdown
+        $this->db->query("SELECT * FROM order_status ORDER BY id");
+        $data['statuses'] = $this->db->resultSet();
+
+        $this->view('admin/order_details', $data);
+    }
+
+    public function update_order_status() {
+        // Check if admin is logged in
+        if(!isset($_SESSION['admin_id'])) {
+            header("Location: " . ROOT . "admin/login");
+            exit();
+        }
+
+        $response = ['success' => false, 'message' => ''];
+
+        if($_SERVER['REQUEST_METHOD'] == "POST") {
+            $order_id = intval($_POST['order_id']);
+            $status_id = intval($_POST['status_id']);
+            $status_note = trim($_POST['status_note'] ?? '');
+
+            if($order_id <= 0 || $status_id <= 0) {
+                $response['message'] = "Invalid input";
+            } else {
+                // Update order status
+                $this->db->query("UPDATE orders SET status_id = ? WHERE id = ?");
+                $this->db->bind(1, $status_id);
+                $this->db->bind(2, $order_id);
+
+                if($this->db->execute()) {
+                    // Add status history
+                    if(!empty($status_note)) {
+                        $this->db->query("INSERT INTO order_status_history (order_id, status_id, note, updated_by) 
+                                        VALUES (?, ?, ?, ?)");
+                        $this->db->bind(1, $order_id);
+                        $this->db->bind(2, $status_id);
+                        $this->db->bind(3, $status_note);
+                        $this->db->bind(4, $_SESSION['admin_id']);
+                        $this->db->execute();
+                    }
+
+                    $response['success'] = true;
+                    $response['message'] = "Order status updated successfully";
+                } else {
+                    $response['message'] = "Error updating order status";
+                }
+            }
+        }
+
+        echo json_encode($response);
+        exit();
+    }
 }
