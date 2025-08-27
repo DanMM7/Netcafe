@@ -1,9 +1,7 @@
 <?php
-
-    include '..app/core/config.php';
-    include '../app/core/controller.php';
-    include '../app/core/database.php';
-    include '../app/core/functions.php';
-    include '../app/core/app.php';
-
-  
+    // Core configuration files
+    include __DIR__ . '/core/config.php';
+    include __DIR__ . '/core/controller.php';
+    include __DIR__ . '/core/database.php';
+    include __DIR__ . '/core/functions.php';
+    include __DIR__ . '/core/app.php';
