@@ -32,6 +32,58 @@
             $this->view('Netcafe/about', $data);
         }
 
+        public function contact() {
+            $data['page_title'] = 'Contact Us - Netcafe';
+            $data['errors'] = [];
+            $data['success'] = false;
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Validate form data
+                $name = trim($_POST['name'] ?? '');
+                $email = trim($_POST['email'] ?? '');
+                $subject = trim($_POST['subject'] ?? '');
+                $message = trim($_POST['message'] ?? '');
+
+                // Validation
+                if (empty($name)) {
+                    $data['errors']['name'] = 'Name is required';
+                }
+                if (empty($email)) {
+                    $data['errors']['email'] = 'Email is required';
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $data['errors']['email'] = 'Please enter a valid email';
+                }
+                if (empty($subject)) {
+                    $data['errors']['subject'] = 'Subject is required';
+                }
+                if (empty($message)) {
+                    $data['errors']['message'] = 'Message is required';
+                }
+
+                // If no errors, process the form
+                if (empty($data['errors'])) {
+                    try {
+                        $this->db->query("INSERT INTO contact_messages (name, email, subject, message) 
+                                        VALUES (:name, :email, :subject, :message)");
+                        
+                        $this->db->bind(':name', $name);
+                        $this->db->bind(':email', $email);
+                        $this->db->bind(':subject', $subject);
+                        $this->db->bind(':message', $message);
+
+                        if ($this->db->execute()) {
+                            $data['success'] = true;
+                            // You might want to send an email notification here
+                        }
+                    } catch (Exception $e) {
+                        $data['errors']['db'] = 'Sorry, there was an error processing your message. Please try again later.';
+                    }
+                }
+            }
+            
+            $this->view('Netcafe/contact', $data);
+        }
+
         public function setup() {
             try {
                 // Create Users Table
@@ -97,6 +149,19 @@
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         FOREIGN KEY (order_id) REFERENCES orders(id),
                         FOREIGN KEY (menu_item_id) REFERENCES menu_items(id)
+                    )
+                ");
+
+                // Create Contact Messages Table
+                $this->db->executeSQL("
+                    CREATE TABLE IF NOT EXISTS contact_messages (
+                        id INT PRIMARY KEY AUTO_INCREMENT,
+                        name VARCHAR(100) NOT NULL,
+                        email VARCHAR(100) NOT NULL,
+                        subject VARCHAR(200) NOT NULL,
+                        message TEXT NOT NULL,
+                        status ENUM('new', 'read', 'replied') DEFAULT 'new',
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     )
                 ");
 
