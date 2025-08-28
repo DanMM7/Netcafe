@@ -8,22 +8,28 @@
         }
         
         public function index() {
-            // Test database connection
-            try {
-                $this->db->query("SELECT 1");
-                $this->db->execute();
-                $data = [
-                    'page_title' => 'Netcafe',
-                    'db_status' => 'Database connection successful!'
-                ];
-            } catch(Exception $e) {
-                $data = [
-                    'page_title' => 'Netcafe',
-                    'db_status' => 'Database connection failed: ' . $e->getMessage()
-                ];
-            }
+            $data['page_title'] = 'Netcafe - Welcome';
+            
+            // Get featured menu items
+            $this->db->query("SELECT m.*, c.name as category_name 
+                            FROM menu_items m 
+                            LEFT JOIN categories c ON m.category_id = c.id 
+                            WHERE m.is_available = 1 
+                            ORDER BY RAND() 
+                            LIMIT 6");
+            $data['featured_items'] = $this->db->resultSet();
             
             $this->view('Netcafe/index', $data);
+        }
+
+        public function about() {
+            $data['page_title'] = 'About Us - Netcafe';
+            
+            // Get staff members (users with role 'staff')
+            $this->db->query("SELECT name, role FROM users WHERE role = 'staff' ORDER BY name");
+            $data['staff'] = $this->db->resultSet();
+            
+            $this->view('Netcafe/about', $data);
         }
 
         public function setup() {

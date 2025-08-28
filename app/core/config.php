@@ -10,6 +10,13 @@
 
     define('THEME', 'Netcafe');
 
+    // App Root
+    define('APPROOT', dirname(dirname(__FILE__)));
+    
+    // URL Root - update this to match your setup
+    define('URLROOT', '/Netcafe');
+
+    // Debug mode
     define('DEBUG', true);
 
     if(DEBUG) {
